@@ -1,6 +1,9 @@
-import { LucideTicketCheck } from 'lucide-react';
 import Link from 'next/link';
+
+import { LucideTicketCheck } from 'lucide-react';
+
 import { homePath, ticketsPath } from '@/constants/paths';
+
 import { Button } from './ui/button';
 
 const Header = () => {

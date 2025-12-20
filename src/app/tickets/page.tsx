@@ -1,9 +1,11 @@
 import Link from 'next/link';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { initialTickets } from '@/data/data';
-import { ticketDetailsPath } from '@/constants/paths';
+
 import { LucideCheckCircle, LucideFileText, LucidePencil } from 'lucide-react';
+
 import { Heading } from '@/components/heading';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ticketDetailsPath } from '@/constants/paths';
+import { initialTickets } from '@/data/data';
 
 const TICKET_ICONS = {
   OPEN: <LucideFileText />,
