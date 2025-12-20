@@ -1,4 +1,10 @@
+import Link from 'next/link';
+
+import { Placeholder } from '@/components/placeholder';
+import { Button } from '@/components/ui/button';
+import { ticketsPath } from '@/constants/paths';
 import { initialTickets } from '@/data/data';
+import { TicketItem } from '@/features/ticket/components/ticket-item';
 
 interface TicketPageProps {
   params: Promise<{
@@ -11,13 +17,21 @@ const TicketPage = async ({ params }: TicketPageProps) => {
   const foundTicket = initialTickets.find((ticket) => ticket.id === ticketId);
 
   if (!foundTicket) {
-    return <div>Ticket not found</div>;
+    return (
+      <Placeholder
+        button={
+          <Button asChild variant="outline">
+            <Link href={ticketsPath}>Go to Tickets</Link>
+          </Button>
+        }
+        label="Ticket not found"
+      />
+    );
   }
 
   return (
-    <div>
-      <h2 className="text-lg">{foundTicket.title}</h2>
-      <p className="text-sm">{foundTicket.content}</p>
+    <div className="animate-in fade-in slide-in-from-top flex justify-center duration-400">
+      <TicketItem isDetailView ticket={foundTicket} />
     </div>
   );
 };
