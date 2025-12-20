@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
 import { Header } from '@/components/header';
+import { ThemeProvider } from '@/components/theme/theme-provider';
 
 import './globals.css';
 
@@ -20,10 +21,17 @@ export default function RootLayout({
   return (
     <html className={`${figtree.variable} antialiased`} lang="en">
       <body>
-        <Header />
-        <main className="bg-secondary/20 flex min-h-screen flex-1 flex-col overflow-x-hidden overflow-y-auto px-8 py-24">
-          {children}
-        </main>
+        <ThemeProvider
+          disableTransitionOnChange
+          enableSystem
+          attribute="class"
+          defaultTheme="system"
+        >
+          <Header />
+          <main className="bg-secondary/20 flex min-h-screen flex-1 flex-col overflow-x-hidden overflow-y-auto px-8 py-24">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

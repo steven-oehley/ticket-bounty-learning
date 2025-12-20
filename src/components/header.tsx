@@ -4,6 +4,7 @@ import { LucideTicketCheck } from 'lucide-react';
 
 import { homePath, ticketsPath } from '@/constants/paths';
 
+import { ThemeToggle } from './theme/theme-toggle';
 import { Button } from './ui/button';
 
 const Header = () => {
@@ -17,8 +18,9 @@ const Header = () => {
           </Link>
         </Button>
       </div>
-      <div>
-        <Button asChild variant="default">
+      <div className="flex gap-4">
+        <ThemeToggle />
+        <Button asChild className="cursor-pointer" variant="default">
           <Link href={ticketsPath}>Tickets</Link>
         </Button>
       </div>
