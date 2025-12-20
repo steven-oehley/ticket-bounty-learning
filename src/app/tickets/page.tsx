@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { initialTickets } from '@/data/data';
 import { ticketDetailsPath } from '@/constants/paths';
 
@@ -18,14 +19,22 @@ const TicketsPage = () => {
 
       <div className="animate-in fade-in slide-in-from-top flex flex-1 flex-col items-center gap-y-4 duration-500">
         {initialTickets.map((ticket) => (
-          <div key={ticket.id} className="w-full max-w-105 rounded border border-slate-100 p-4">
-            <div>{TICKET_ICONS[ticket.status]}</div>
-            <h3 className="truncate text-lg font-semibold">{ticket.title}</h3>
-            <p className="truncate text-sm text-slate-500">{ticket.content}</p>
-            <Link className="text-sm underline" href={ticketDetailsPath(ticket.id)}>
-              View
-            </Link>
-          </div>
+          <Card key={ticket.id} className="w-full max-w-105">
+            <CardHeader>
+              <CardTitle className="flex gap-x-2">
+                <span>{TICKET_ICONS[ticket.status]}</span>
+                <span className="truncate">{ticket.title}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <span className="line-clamp-2 whitespace-break-spaces">{ticket.content}</span>
+            </CardContent>
+            <CardFooter>
+              <Link className="text-sm underline" href={ticketDetailsPath(ticket.id)}>
+                View
+              </Link>
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </div>
