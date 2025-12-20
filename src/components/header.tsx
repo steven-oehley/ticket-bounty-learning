@@ -18,7 +18,7 @@ const Header = () => {
           </Link>
         </Button>
       </div>
-      <div className="flex gap-4">
+      <div className="align-items flex gap-x-2">
         <ThemeToggle />
         <Button asChild className="cursor-pointer" variant="default">
           <Link href={ticketsPath}>Tickets</Link>
