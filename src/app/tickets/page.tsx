@@ -1,17 +1,18 @@
+import { Suspense } from 'react';
+
 import { Heading } from '@/components/heading';
-import { TicketItem } from '@/features/ticket/components/ticket-item';
-import { getTickets } from '@/features/ticket/queries/get-tickets';
+import LoaderSpinner from '@/components/loader-spinner';
+import TicketList from '@/features/ticket/components/ticket-list';
 
 const TicketsPage = async () => {
-  const tickets = await getTickets();
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Heading description="All your tickets at one place" title="Tickets" />
-      <div className="animate-in fade-in slide-in-from-top flex flex-1 flex-col items-center gap-y-4 duration-400">
-        {tickets.map((ticket) => (
-          <TicketItem key={ticket.id} ticket={ticket} />
-        ))}
-      </div>
+      {/* In order to suspend the data fetching needs to happen inside the Suspense */}
+      {/* This is why we refactored to separate TicketList with data fetching there and then wrapped in Suspense */}
+      <Suspense fallback={<LoaderSpinner />}>
+        <TicketList />
+      </Suspense>
     </div>
   );
 };
