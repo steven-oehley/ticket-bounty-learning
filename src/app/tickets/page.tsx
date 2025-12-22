@@ -10,6 +10,8 @@ const TicketsPage = async () => {
       <Heading description="All your tickets at one place" title="Tickets" />
       {/* In order to suspend the data fetching needs to happen inside the Suspense */}
       {/* This is why we refactored to separate TicketList with data fetching there and then wrapped in Suspense */}
+
+      {/* Could have used an ErrorBoundary here if wanted more fine grain control - react-error-boundary library */}
       <Suspense fallback={<LoaderSpinner />}>
         <TicketList />
       </Suspense>
