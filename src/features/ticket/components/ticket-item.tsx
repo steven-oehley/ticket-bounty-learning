@@ -5,10 +5,10 @@ import { LucideArrowUpRightFromSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ticketDetailsPath } from '@/constants/paths';
+import { type Ticket } from '@/generated/prisma/client';
 import { cn } from '@/lib/utils';
 
 import { TICKET_ICONS } from '../constants';
-import { type Ticket } from '../types';
 
 type TicketItemProps = {
   ticket: Ticket;
