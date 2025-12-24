@@ -4,6 +4,29 @@ import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
 import TicketList from '@/features/ticket/components/ticket-list';
 
+// ----------------------------------------------------------------
+//  CACHING NOTE FOR NEXT.JS 13+ APPS DIRECTORY
+// ----------------------------------------------------------------
+
+// Next.js statically generates pages by default, even with database queries.
+// Your /tickets page is being rendered at build time with whatever data existed then.
+
+//   This means:
+//   - The page shows stale data from build time
+//   - New tickets won't appear until you rebuild
+
+//   To make it dynamic (fetch fresh data on each request), add this to your tickets page:
+
+//   export const dynamic = 'force-dynamic';
+
+//   Or use ISR (revalidate periodically):
+
+//   export const revalidate = 60; // Refresh every 60 seconds if we can predict how often data changes
+//   of if we cant predict (based on user activity) then use 'revaidatePath' or 'revalidateTag' in server actions
+
+//   The /tickets/[ticketId] route is dynamic (ƒ) because it has a dynamic segment [ticketId]
+// that can't be known at build time (unless you use generateStaticParams).
+
 const TicketsPage = async () => {
   return (
     <div className="flex flex-1 flex-col gap-y-8">
