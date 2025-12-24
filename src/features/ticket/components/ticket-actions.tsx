@@ -16,7 +16,8 @@ interface TicketActionsProps {
 const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
   const detailButton = (
     <Button asChild size="icon" variant="outline">
-      <Link href={ticketDetailsPath(ticket.id)}>
+      {/* prefetch happens when link enters viewport */}
+      <Link prefetch href={ticketDetailsPath(ticket.id)}>
         <LucideArrowUpRightFromSquare />
       </Link>
     </Button>
