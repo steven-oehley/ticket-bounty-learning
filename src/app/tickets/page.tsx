@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import TicketList from '@/features/ticket/components/ticket-list';
 
 // ----------------------------------------------------------------
@@ -40,6 +41,14 @@ const TicketsPage = async () => {
       {/* This is why we refactored to separate TicketList with data fetching there and then wrapped in Suspense */}
 
       {/* Could have used an ErrorBoundary here if wanted more fine grain control - react-error-boundary library */}
+
+      <Card className="w-full max-w-105 self-center">
+        <CardHeader>
+          <CardTitle>Create A New Ticket</CardTitle>
+          <CardDescription>A new ticket will be created for your issue</CardDescription>
+        </CardHeader>
+        <CardContent>TicketCreateForm</CardContent>
+      </Card>
       <Suspense fallback={<LoaderSpinner />}>
         <TicketList />
       </Suspense>
