@@ -27,6 +27,11 @@ import TicketList from '@/features/ticket/components/ticket-list';
 //   The /tickets/[ticketId] route is dynamic (ƒ) because it has a dynamic segment [ticketId]
 // that can't be known at build time (unless you use generateStaticParams).
 
+// ----------------------------------------------------------------
+// TIME BASED REVALIDATION (ISR) STRATEGY
+// ----------------------------------------------------------------
+// export const revalidate = 30; // Revalidate this page every 30 seconds
+
 const TicketsPage = async () => {
   return (
     <div className="flex flex-1 flex-col gap-y-8">
