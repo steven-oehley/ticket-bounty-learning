@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 
+import CardCompact from '@/components/card-compact';
 import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import TicketCreateForm from '@/features/ticket/components/forms/ticket-create-form';
 import TicketList from '@/features/ticket/components/ticket-list';
 
@@ -43,15 +43,12 @@ const TicketsPage = async () => {
 
       {/* Could have used an ErrorBoundary here if wanted more fine grain control - react-error-boundary library */}
 
-      <Card className="w-full max-w-105 self-center">
-        <CardHeader>
-          <CardTitle>Create A New Ticket</CardTitle>
-          <CardDescription>A new ticket will be created for your issue</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TicketCreateForm />
-        </CardContent>
-      </Card>
+      <CardCompact
+        description="A new ticket will be created for your issue"
+        title="Create A New Ticket"
+      >
+        <TicketCreateForm />
+      </CardCompact>
       <Suspense fallback={<LoaderSpinner />}>
         <TicketList />
       </Suspense>
