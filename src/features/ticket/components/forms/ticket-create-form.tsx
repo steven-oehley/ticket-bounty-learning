@@ -5,9 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
+import { createTicket } from '../../actions/create-ticket';
+
 const TicketCreateForm = () => {
   return (
-    <Form action="" className="flex flex-col gap-y-4">
+    <Form action={createTicket} className="flex flex-col gap-y-4">
       <Label htmlFor="title">Title</Label>
       <Input required id="title" name="title" placeholder="Ticket title here..." type="text" />
       <Label htmlFor="content">Description</Label>
