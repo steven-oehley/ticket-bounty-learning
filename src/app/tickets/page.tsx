@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import TicketCreateForm from '@/features/ticket/components/forms/ticket-create-form';
 import TicketList from '@/features/ticket/components/ticket-list';
 
 // ----------------------------------------------------------------
@@ -47,7 +48,9 @@ const TicketsPage = async () => {
           <CardTitle>Create A New Ticket</CardTitle>
           <CardDescription>A new ticket will be created for your issue</CardDescription>
         </CardHeader>
-        <CardContent>TicketCreateForm</CardContent>
+        <CardContent>
+          <TicketCreateForm />
+        </CardContent>
       </Card>
       <Suspense fallback={<LoaderSpinner />}>
         <TicketList />
