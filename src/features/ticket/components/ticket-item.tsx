@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 import { TICKET_ICONS } from '../constants';
 
-import TicketActions from './ticket-actions';
+import TicketActions from './ticket-actions/ticket-actions';
 
 type TicketItemProps = {
   ticket: Ticket;
