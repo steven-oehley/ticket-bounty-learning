@@ -1,6 +1,6 @@
 import Form from 'next/form';
 
-import { Button } from '@/components/ui/button';
+import SubmitBtn from '@/components/submit-btn';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -32,7 +32,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         name="content"
         placeholder="Ticket description here..."
       />
-      <Button type="submit">{ticket ? 'Update Ticket' : 'Create Ticket'}</Button>
+      <SubmitBtn label={ticket ? 'Update Ticket' : 'Create Ticket'} />
     </Form>
   );
 };
