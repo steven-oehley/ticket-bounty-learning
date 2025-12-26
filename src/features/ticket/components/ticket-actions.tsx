@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-import { LucideArrowUpRightFromSquare, LucideTrash2 } from 'lucide-react';
+import { LucideArrowUpRightFromSquare, LucidePencil, LucideTrash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { ticketDetailsPath } from '@/constants/paths';
+import { ticketDetailsPath, ticketEditPath } from '@/constants/paths';
 import { type Ticket } from '@/generated/prisma/client';
 
 import { deleteTicketAction } from '../actions/delete-ticket';
@@ -31,10 +31,27 @@ const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
     </form>
   );
 
+  const editButton = (
+    <Button asChild size="icon" variant="outline">
+      {/* prefetch happens when link enters viewport */}
+      <Link prefetch href={ticketEditPath(ticket.id)}>
+        <LucidePencil />
+      </Link>
+    </Button>
+  );
+
   return (
     <div className="flex flex-col gap-y-1">
-      {!isDetailedView && detailButton}
-      {isDetailedView && deleteButton}
+      {isDetailedView ? (
+        <>
+          {editButton} {deleteButton}
+        </>
+      ) : (
+        <>
+          {detailButton}
+          {editButton}
+        </>
+      )}
     </div>
   );
 };
