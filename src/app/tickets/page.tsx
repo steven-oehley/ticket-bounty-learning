@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import CardCompact from '@/components/card-compact';
 import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
-import TicketCreateForm from '@/features/ticket/components/forms/ticket-create-form';
+import TicketUpsertForm from '@/features/ticket/components/forms/ticket-upsert-form';
 import TicketList from '@/features/ticket/components/ticket-list';
 
 // ----------------------------------------------------------------
@@ -47,7 +47,7 @@ const TicketsPage = async () => {
         description="A new ticket will be created for your issue"
         title="Create A New Ticket"
       >
-        <TicketCreateForm />
+        <TicketUpsertForm />
       </CardCompact>
       <Suspense fallback={<LoaderSpinner />}>
         <TicketList />
