@@ -4,21 +4,26 @@ import { redirect } from 'next/navigation';
 
 import { ticketDetailsPath, ticketsPath } from '@/constants/paths';
 import prisma from '@/lib/prisma';
+import { ticketUpsertSchema } from '@/schemas/form-schemas';
 
 export const upsertTicket = async (
   ticketId: string | undefined,
   prevState: { message: string },
   formData: FormData
 ) => {
-  const ticketData = {
-    title: formData.get('title') as string,
-    content: formData.get('content') as string,
-  };
+  const ticketData = ticketUpsertSchema.safeParse({
+    title: formData.get('title'),
+    content: formData.get('content'),
+  });
+
+  if (!ticketData.success) {
+    return { message: 'Invalid ticket data provided.' };
+  }
 
   await prisma.ticket.upsert({
     where: { id: ticketId || '' },
-    update: ticketData,
-    create: ticketData,
+    update: ticketData.data,
+    create: ticketData.data,
   });
 
   revalidatePath(ticketsPath);
