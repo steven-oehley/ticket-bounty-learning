@@ -12,14 +12,15 @@ interface SubmitBtnProps {
   className?: string;
   label: string;
   variant?: 'default' | 'destructive' | 'outline' | 'ghost' | 'link' | 'secondary';
+  isDisabled?: boolean;
 }
 
-const SubmitBtn = ({ className, label, variant }: SubmitBtnProps) => {
+const SubmitBtn = ({ className, label, variant, isDisabled }: SubmitBtnProps) => {
   const { pending } = useFormStatus();
   return (
     <Button
       className={cn('w-full', { className })}
-      disabled={pending}
+      disabled={isDisabled}
       type="submit"
       variant={variant}
     >

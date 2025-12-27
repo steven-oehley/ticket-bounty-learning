@@ -1,3 +1,6 @@
+'use client';
+
+import { useActionState } from 'react';
 import Form from 'next/form';
 
 import SubmitBtn from '@/components/form/submit-btn';
@@ -13,8 +16,12 @@ interface TicketUpsertFormProps {
 }
 
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
+  const [ticketUpsertState, ticketUpsertAction, isPending] = useActionState(
+    upsertTicket.bind(null, ticket?.id),
+    { message: '' }
+  );
   return (
-    <Form action={upsertTicket.bind(null, ticket?.id)} className="flex flex-col gap-y-4">
+    <Form action={ticketUpsertAction} className="flex flex-col gap-y-4">
       <Label htmlFor="title">Title</Label>
       <Input
         required
@@ -32,7 +39,8 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         name="content"
         placeholder="Ticket description here..."
       />
-      <SubmitBtn label={ticket ? 'Update Ticket' : 'Create Ticket'} />
+      <SubmitBtn isDisabled={isPending} label={ticket ? 'Update Ticket' : 'Create Ticket'} />
+      {ticketUpsertState?.message && <span>{ticketUpsertState?.message}</span>}
     </Form>
   );
 };
