@@ -22,6 +22,8 @@ export default [
       'next-env.d.ts',
       '.eslintcache',
       'public/**',
+      '.vscode/**',
+      '.claude/**',
     ],
   },
 
