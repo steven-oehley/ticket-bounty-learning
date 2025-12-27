@@ -25,7 +25,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
       <Label htmlFor="title">Title</Label>
       <Input
         required
-        defaultValue={ticket?.title || ''}
+        defaultValue={(ticketUpsertState.payload?.get('title') as string) ?? ticket?.title}
         id="title"
         name="title"
         placeholder="Ticket title here..."
@@ -34,7 +34,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
       <Label htmlFor="content">Description</Label>
       <Textarea
         required
-        defaultValue={ticket?.content || ''}
+        defaultValue={(ticketUpsertState.payload?.get('content') as string) ?? ticket?.content}
         id="content"
         name="content"
         placeholder="Ticket description here..."
