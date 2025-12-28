@@ -1,9 +1,9 @@
 'use client';
 
 import { useActionState } from 'react';
-import Form from 'next/form';
 
 import FieldError from '@/components/form/field-error';
+import Form from '@/components/form/form';
 import SubmitBtn from '@/components/form/submit-btn';
 import { EMPTY_ACTION_STATE } from '@/components/form/utils/to-action-state';
 import { Input } from '@/components/ui/input';
@@ -22,8 +22,13 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
     upsertTicket.bind(null, ticket?.id),
     EMPTY_ACTION_STATE
   );
+
   return (
-    <Form action={ticketUpsertAction} className="flex flex-col gap-y-4">
+    <Form
+      action={ticketUpsertAction}
+      actionState={ticketUpsertState}
+      className="flex flex-col gap-y-4"
+    >
       <Label htmlFor="title">Title</Label>
       <Input
         required
@@ -48,9 +53,6 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         <FieldError actionState={ticketUpsertState} name="content" />
       )}
       <SubmitBtn isDisabled={isPending} label={ticket ? 'Update Ticket' : 'Create Ticket'} />
-      {ticketUpsertState?.message && (
-        <span className="text-red-500">{ticketUpsertState?.message}</span>
-      )}
     </Form>
   );
 };

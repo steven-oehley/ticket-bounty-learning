@@ -3,6 +3,7 @@ import { Figtree } from 'next/font/google';
 
 import { Header } from '@/components/header';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <main className="bg-secondary/20 flex min-h-screen flex-1 flex-col overflow-x-hidden overflow-y-auto px-8 py-24">
             {children}
           </main>
+          <Toaster position="bottom-right" />
         </ThemeProvider>
       </body>
     </html>
