@@ -3,6 +3,7 @@
 import { useActionState } from 'react';
 import Form from 'next/form';
 
+import FieldError from '@/components/form/field-error';
 import SubmitBtn from '@/components/form/submit-btn';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -31,6 +32,9 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         placeholder="Ticket title here..."
         type="text"
       />
+      {ticketUpsertState?.fieldErrors?.title?.[0] && (
+        <FieldError message={ticketUpsertState?.fieldErrors?.title?.[0]} />
+      )}
       <Label htmlFor="content">Description</Label>
       <Textarea
         required
@@ -39,8 +43,13 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
         name="content"
         placeholder="Ticket description here..."
       />
+      {ticketUpsertState?.fieldErrors?.content?.[0] && (
+        <FieldError message={ticketUpsertState?.fieldErrors?.content?.[0]} />
+      )}
       <SubmitBtn isDisabled={isPending} label={ticket ? 'Update Ticket' : 'Create Ticket'} />
-      {ticketUpsertState?.message && <span>{ticketUpsertState?.message}</span>}
+      {ticketUpsertState?.message && (
+        <span className="text-red-500">{ticketUpsertState?.message}</span>
+      )}
     </Form>
   );
 };
