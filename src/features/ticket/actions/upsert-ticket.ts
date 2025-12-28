@@ -2,7 +2,11 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import { type ActionState, fromErrorToActionState } from '@/components/form/utils/to-action-state';
+import {
+  type ActionState,
+  fromErrorToActionState,
+  toActionState,
+} from '@/components/form/utils/to-action-state';
 import { ticketDetailsPath, ticketsPath } from '@/constants/paths';
 import prisma from '@/lib/prisma';
 import { ticketUpsertSchema } from '@/schemas/form-schemas';
@@ -33,7 +37,7 @@ export const upsertTicket = async (
       redirect(ticketDetailsPath(ticketId));
     }
 
-    return { message: 'Ticket created successfully' };
+    return toActionState(ticketId ? 'Ticket updated successfully' : 'Ticket created successfully');
   } catch (error) {
     return fromErrorToActionState(error, formData);
   }
