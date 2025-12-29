@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import CardCompact from '@/components/card-compact';
 import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
-import RedirectToast from '@/components/redirect-toast';
 import TicketUpsertForm from '@/features/ticket/components/forms/ticket-upsert-form';
 import TicketList from '@/features/ticket/components/ticket-list';
 
@@ -53,7 +52,8 @@ const TicketsPage = async () => {
       <Suspense fallback={<LoaderSpinner />}>
         <TicketList />
       </Suspense>
-      <RedirectToast />
+      {/* <RedirectToast /> */}
+      {/* Moved to layout and added pathname as dependency */}
     </div>
   );
 };

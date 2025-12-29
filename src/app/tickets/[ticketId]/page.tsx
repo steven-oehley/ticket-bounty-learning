@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 
-import RedirectToast from '@/components/redirect-toast';
 import { TicketItem } from '@/features/ticket/components/ticket-item';
 import { getTicket } from '@/features/ticket/queries/get-ticket';
 // import { prisma } from '@/lib/prisma';
@@ -22,8 +21,9 @@ const TicketPage = async ({ params }: TicketPageProps) => {
   return (
     <div className="animate-in fade-in slide-in-from-top flex justify-center duration-400">
       <TicketItem isDetailView ticket={foundTicket} />
-      {/* Placed here at page level because layouts dont re-render!! NB*  */}
-      <RedirectToast />
+      {/* Placed here at page level because layouts dont re-render!! NB* 
+      <RedirectToast /> */}
+      {/* Fix is to ensure pathanme is dependancy for the effect */}
     </div>
   );
 };
