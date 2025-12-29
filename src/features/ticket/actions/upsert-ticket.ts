@@ -2,6 +2,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { setCookieByKey } from '@/actions/cookies';
 import {
   type ActionState,
   fromErrorToActionState,
@@ -41,6 +42,7 @@ export const upsertTicket = async (
   if (ticketId) {
     // if updating an existing ticket, redirect to its details page
     // this needs to be done after catch because throws a special redirect exception
+    await setCookieByKey('toastMessage', 'Ticket updated successfully');
     redirect(ticketDetailsPath(ticketId));
   }
 
