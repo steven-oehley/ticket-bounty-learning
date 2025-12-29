@@ -19,6 +19,8 @@ model Ticket {
   updatedAt DateTime     @updatedAt
   title     String
   content   String       @db.VarChar(1024)
+  bounty    Int
+  deadline  String
   status    TicketStatus @default(OPEN)
 }
 

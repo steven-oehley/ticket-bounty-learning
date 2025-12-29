@@ -52,6 +52,39 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
       {ticketUpsertState?.fieldErrors?.content?.[0] && (
         <FieldError actionState={ticketUpsertState} name="content" />
       )}
+      <div className="flex justify-between space-x-4">
+        <div className="flex w-1/2 flex-col items-start justify-center space-y-4">
+          <Label htmlFor="deadline">Deadline</Label>
+          <Input
+            required
+            defaultValue={
+              (ticketUpsertState.payload?.get('deadline') as string) ?? ticket?.deadline
+            }
+            id="deadline"
+            name="deadline"
+            placeholder="Ticket deadline here..."
+            type="date"
+          />
+          {ticketUpsertState?.fieldErrors?.deadline?.[0] && (
+            <FieldError actionState={ticketUpsertState} name="deadline" />
+          )}
+        </div>
+        <div className="flex w-1/2 flex-col items-start justify-center space-y-4">
+          <Label htmlFor="bounty">Bounty</Label>
+          <Input
+            required
+            defaultValue={(ticketUpsertState.payload?.get('bounty') as string) ?? ticket?.bounty}
+            id="bounty"
+            name="bounty"
+            placeholder="Ticket bounty here..."
+            step="0.01"
+            type="number"
+          />
+          {ticketUpsertState?.fieldErrors?.bounty?.[0] && (
+            <FieldError actionState={ticketUpsertState} name="bounty" />
+          )}
+        </div>
+      </div>
       <SubmitBtn isDisabled={isPending} label={ticket ? 'Update Ticket' : 'Create Ticket'} />
     </Form>
   );

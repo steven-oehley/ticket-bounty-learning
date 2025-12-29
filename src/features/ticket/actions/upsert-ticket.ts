@@ -21,6 +21,8 @@ export const upsertTicket = async (
     const result = ticketUpsertSchema.safeParse({
       title: formData.get('title'),
       content: formData.get('content'),
+      bounty: formData.get('bounty'),
+      deadline: formData.get('deadline'),
     });
 
     if (!result.success) {

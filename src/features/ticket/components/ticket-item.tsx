@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { type Ticket } from '@/generated/prisma/client';
 import { cn } from '@/lib/utils';
 
@@ -35,6 +35,10 @@ const TicketItem = ({ ticket, isDetailView }: TicketItemProps) => {
             {ticket.content}
           </span>
         </CardContent>
+        <CardFooter className="text-muted-foreground flex justify-between text-sm">
+          <p>{ticket.deadline}</p>
+          <p>R {ticket.bounty}</p>
+        </CardFooter>
       </Card>
       <TicketActions isDetailedView={isDetailView} ticket={ticket} />
     </div>
