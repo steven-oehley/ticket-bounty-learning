@@ -31,14 +31,18 @@ export const upsertTicket = async (
       update: result.data,
       create: result.data,
     });
-
-    revalidatePath(ticketsPath);
-    if (ticketId) {
-      redirect(ticketDetailsPath(ticketId));
-    }
-
-    return toActionState(ticketId ? 'Ticket updated successfully' : 'Ticket created successfully');
   } catch (error) {
     return fromErrorToActionState(error, formData);
   }
+
+  // need to revalidate the tickets path to show the new/updated ticket
+  revalidatePath(ticketsPath);
+
+  if (ticketId) {
+    // if updating an existing ticket, redirect to its details page
+    // this needs to be done after catch because throws a special redirect exception
+    redirect(ticketDetailsPath(ticketId));
+  }
+
+  return toActionState('Ticket created successfully');
 };
