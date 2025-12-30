@@ -1,26 +1,29 @@
 import { useEffect } from 'react';
 
+import { toast } from 'sonner';
+
 import { type ActionState } from '../utils/to-action-state';
 
-export type OnArgs = {
-  actionState: ActionState;
-};
-
-export type UseActionFeedbackOptions = {
-  onSuccess?: (args: OnArgs) => void;
-  onError?: (args: OnArgs) => void;
-};
-
-const useActionFeedback = (actionState: ActionState, options: UseActionFeedbackOptions) => {
+const useActionFeedback = (
+  actionState: ActionState,
+  onSuccess?: (actionState: ActionState) => void,
+  onError?: (actionState: ActionState) => void
+) => {
   useEffect(() => {
     if (actionState.status === 'SUCCESS') {
-      options.onSuccess?.({ actionState });
+      if (actionState.message) {
+        toast.success(actionState.message);
+      }
+      onSuccess?.(actionState);
     }
 
     if (actionState.status === 'ERROR') {
-      options.onError?.({ actionState });
+      if (actionState.message) {
+        toast.error(actionState.message);
+      }
+      onError?.(actionState);
     }
-  }, [actionState, options]);
+  }, [actionState, onSuccess, onError]);
 };
 
 export default useActionFeedback;

@@ -1,11 +1,8 @@
-import { useMemo } from 'react';
 import NextForm from 'next/form';
-
-import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 
-import useActionFeedback, { type UseActionFeedbackOptions } from './hooks/use-action-feedback';
+import useActionFeedback from './hooks/use-action-feedback';
 import { type ActionState } from './utils/to-action-state';
 
 interface FormProps {
@@ -13,26 +10,12 @@ interface FormProps {
   children?: React.ReactNode;
   actionState: ActionState;
   className?: string;
+  onSuccess?: (actionState: ActionState) => void;
+  onError?: (actionState: ActionState) => void;
 }
 
-const Form = ({ action, children, actionState, className }: FormProps) => {
-  const feedbackOptions = useMemo<UseActionFeedbackOptions>(
-    () => ({
-      onSuccess: ({ actionState }) => {
-        if (actionState.message) {
-          toast.success(actionState.message);
-        }
-      },
-      onError: ({ actionState }) => {
-        if (actionState.message) {
-          toast.error(actionState.message);
-        }
-      },
-    }),
-    []
-  );
-
-  useActionFeedback(actionState, feedbackOptions);
+const Form = ({ action, children, actionState, className, onError, onSuccess }: FormProps) => {
+  useActionFeedback(actionState, onSuccess, onError);
 
   return (
     <NextForm action={action} className={cn('flex flex-col gap-y-2', className)}>
