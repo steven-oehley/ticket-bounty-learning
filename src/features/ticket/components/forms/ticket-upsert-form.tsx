@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { type Ticket } from '@/generated/prisma/client';
+import { toCurrencyFromCents } from '@/utils/currency';
 
 import { upsertTicket } from '../../actions/upsert-ticket';
 
@@ -73,7 +74,10 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
           <Label htmlFor="bounty">Bounty</Label>
           <Input
             required
-            defaultValue={(ticketUpsertState.payload?.get('bounty') as string) ?? ticket?.bounty}
+            defaultValue={
+              (ticketUpsertState.payload?.get('bounty') as string) ??
+              (ticket?.bounty ? toCurrencyFromCents(ticket?.bounty) : '')
+            }
             id="bounty"
             name="bounty"
             placeholder="Ticket bounty here..."

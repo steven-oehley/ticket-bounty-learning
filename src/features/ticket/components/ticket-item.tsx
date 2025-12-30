@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { type Ticket } from '@/generated/prisma/client';
 import { cn } from '@/lib/utils';
+import { formatCurrency } from '@/utils/currency';
 
 import { TICKET_ICONS } from '../constants';
 
@@ -37,7 +38,7 @@ const TicketItem = ({ ticket, isDetailView }: TicketItemProps) => {
         </CardContent>
         <CardFooter className="text-muted-foreground flex justify-between text-sm">
           <p>{ticket.deadline}</p>
-          <p>R {ticket.bounty}</p>
+          <p>{formatCurrency(ticket.bounty)}</p>
         </CardFooter>
       </Card>
       <TicketActions isDetailedView={isDetailView} ticket={ticket} />

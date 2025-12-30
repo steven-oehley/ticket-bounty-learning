@@ -11,6 +11,7 @@ import {
 import { ticketDetailsPath, ticketsPath } from '@/constants/paths';
 import prisma from '@/lib/prisma';
 import { ticketUpsertSchema } from '@/schemas/form-schemas';
+import { toCentsFromCurrency } from '@/utils/currency';
 
 export const upsertTicket = async (
   ticketId: string | undefined,
@@ -29,10 +30,15 @@ export const upsertTicket = async (
       return fromErrorToActionState(result.error, formData);
     }
 
+    const dbData = {
+      ...result.data,
+      bounty: toCentsFromCurrency(result.data.bounty),
+    };
+
     await prisma.ticket.upsert({
       where: { id: ticketId || '' },
-      update: result.data,
-      create: result.data,
+      update: dbData,
+      create: dbData,
     });
   } catch (error) {
     return fromErrorToActionState(error, formData);
