@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react';
 
+import DatePicker from '@/components/date-picker';
 import FieldError from '@/components/form/field-error';
 import Form from '@/components/form/form';
 import SubmitBtn from '@/components/form/submit-btn';
@@ -53,10 +54,10 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
       {ticketUpsertState?.fieldErrors?.content?.[0] && (
         <FieldError actionState={ticketUpsertState} name="content" />
       )}
-      <div className="flex justify-between space-x-4">
-        <div className="flex w-1/2 flex-col items-start justify-center space-y-4">
+      <div className="flex items-start justify-between space-x-4">
+        <div className="flex w-1/2 flex-col space-y-2">
           <Label htmlFor="deadline">Deadline</Label>
-          <Input
+          {/* <Input
             required
             defaultValue={
               (ticketUpsertState.payload?.get('deadline') as string) ?? ticket?.deadline
@@ -65,12 +66,20 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
             name="deadline"
             placeholder="Ticket deadline here..."
             type="date"
+          /> */}
+          <DatePicker
+            key={ticketUpsertState.timeStamp}
+            defaultValue={
+              (ticketUpsertState.payload?.get('deadline') as string) ?? ticket?.deadline
+            }
+            id="deadline"
+            name="deadline"
           />
           {ticketUpsertState?.fieldErrors?.deadline?.[0] && (
             <FieldError actionState={ticketUpsertState} name="deadline" />
           )}
         </div>
-        <div className="flex w-1/2 flex-col items-start justify-center space-y-4">
+        <div className="flex w-1/2 flex-col space-y-2">
           <Label htmlFor="bounty">Bounty</Label>
           <Input
             required
