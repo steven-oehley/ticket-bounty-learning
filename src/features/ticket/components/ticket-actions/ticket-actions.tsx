@@ -5,6 +5,7 @@ import { deleteTicketAction } from '../../actions/delete-ticket';
 import DeleteBtn from './components/delete-btn';
 import DetailBtn from './components/detail-btn';
 import EditBtn from './components/edit-btn';
+import TicketExtendedOptions from './components/ticket-extended-options';
 
 interface TicketActionsProps {
   isDetailedView?: boolean;
@@ -20,6 +21,7 @@ const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
           <form action={deleteTicketAction.bind(null, ticket.id)}>
             <DeleteBtn />
           </form>
+          <TicketExtendedOptions ticket={ticket} />
         </>
       ) : (
         <>
