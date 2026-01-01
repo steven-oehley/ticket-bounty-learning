@@ -11,6 +11,7 @@ export const getBaseUrl = () => {
 };
 
 // Automatically avaiolable env variables from hosting provider, framewrok or node env.
+// No need to define them in env file - wow!
 
 // VERCEL_
 // NEXT_
