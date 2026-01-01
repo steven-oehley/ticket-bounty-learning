@@ -20,7 +20,7 @@ interface ConfirmDialogProps {
   trigger: React.ReactElement;
   title: string;
   description: string;
-  action: () => Promise<void>;
+  action: () => Promise<unknown>;
 }
 
 const ConfirmDialog = ({ trigger, title, description, action }: ConfirmDialogProps) => {

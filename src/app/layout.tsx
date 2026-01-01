@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
+import { Analytics } from '@vercel/analytics/next';
+
 import { Header } from '@/components/header';
 import RedirectToast from '@/components/redirect-toast';
 import { ThemeProvider } from '@/components/theme/theme-provider';
@@ -35,6 +37,7 @@ export default function RootLayout({
           </main>
           <Toaster position="bottom-right" />
           <RedirectToast />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
