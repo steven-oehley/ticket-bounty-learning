@@ -21,9 +21,6 @@ const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
       {isDetailedView ? (
         <>
           <EditBtn ticketId={ticket.id} />
-          {/* <form action={deleteTicketAction.bind(null, ticket.id)}>
-            <DeleteBtn />
-          </form> */}
           <ConfirmDialog
             action={deleteTicketAction.bind(null, ticket.id)}
             description="This action can not be undone. Once the ticket is deleted, it is lost forever."

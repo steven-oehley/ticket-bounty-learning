@@ -1,6 +1,11 @@
+'use client';
+
+import { useState, useTransition } from 'react';
+
+import { LucideLoader2 } from 'lucide-react';
+
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -9,17 +14,28 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
 interface ConfirmDialogProps {
   trigger: React.ReactElement;
   title: string;
   description: string;
-  action: (payload: FormData) => void;
+  action: () => Promise<void>;
 }
 
 const ConfirmDialog = ({ trigger, title, description, action }: ConfirmDialogProps) => {
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  const handleConfirm = () => {
+    startTransition(async () => {
+      await action();
+      setOpen(false);
+    });
+  };
+
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -27,12 +43,11 @@ const ConfirmDialog = ({ trigger, title, description, action }: ConfirmDialogPro
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <form action={action}>
-            <AlertDialogAction className="cursor-pointer" type="submit">
-              Confirm
-            </AlertDialogAction>
-          </form>
+          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <Button className="cursor-pointer" disabled={isPending} onClick={handleConfirm}>
+            {isPending && <LucideLoader2 className="animate-spin" />}
+            Confirm
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
