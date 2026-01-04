@@ -9,8 +9,8 @@ import {
   toActionState,
 } from '@/components/form/utils/to-action-state';
 import { ticketDetailsPath, ticketsPath } from '@/constants/paths';
+import { ticketUpsertSchema } from '@/features/ticket/schemas/form-schemas';
 import prisma from '@/lib/prisma';
-import { ticketUpsertSchema } from '@/schemas/form-schemas';
 import { toCentsFromCurrency } from '@/utils/currency';
 
 export const upsertTicket = async (

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { LucideTicketCheck } from 'lucide-react';
 
-import { homePath, ticketsPath } from '@/constants/paths';
+import { homePath, signInPath, signUpPath, ticketsPath } from '@/constants/paths';
 
 import { ThemeToggle } from './theme/theme-toggle';
 import { Button } from './ui/button';
@@ -20,8 +20,15 @@ const Header = () => {
       </div>
       <div className="align-items flex gap-x-2">
         <ThemeToggle />
+        {/* NAV ITEMS */}
         <Button asChild className="cursor-pointer" variant="default">
           <Link href={ticketsPath}>Tickets</Link>
+        </Button>
+        <Button asChild className="cursor-pointer" variant="outline">
+          <Link href={signUpPath}>Sign Up</Link>
+        </Button>
+        <Button asChild className="cursor-pointer" variant="outline">
+          <Link href={signInPath}>Sign In</Link>
         </Button>
       </div>
     </nav>

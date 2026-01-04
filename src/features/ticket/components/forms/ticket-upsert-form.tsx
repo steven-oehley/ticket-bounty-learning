@@ -26,11 +26,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
   );
 
   return (
-    <Form
-      action={ticketUpsertAction}
-      actionState={ticketUpsertState}
-      className="flex flex-col gap-y-4"
-    >
+    <Form action={ticketUpsertAction} actionState={ticketUpsertState}>
       <Label htmlFor="title">Title</Label>
       <Input
         required
