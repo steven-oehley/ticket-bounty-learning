@@ -17,7 +17,7 @@ const SignUpForm = () => {
     <Form action={signUpAction} actionState={signUpActionState}>
       <Label htmlFor="username">Username:</Label>
       <Input
-        defaultValue={(signUpActionState.payload?.get('username') as string) || ''}
+        defaultValue={signUpActionState.payload?.get('username') as string}
         id="username"
         name="username"
         placeholder="Enter your username"
@@ -25,7 +25,7 @@ const SignUpForm = () => {
       <FieldError actionState={signUpActionState} name="username" />
       <Label htmlFor="email">Email:</Label>
       <Input
-        defaultValue={(signUpActionState.payload?.get('email') as string) || ''}
+        defaultValue={signUpActionState.payload?.get('email') as string}
         id="email"
         name="email"
         placeholder="Enter your email"

@@ -9,4 +9,4 @@ export const ticketEditPath = (ticketId: string) => `/tickets/${ticketId}/edit`;
 // AUTH PAGES/PATHS
 export const signUpPath = '/sign-up';
 export const signInPath = '/sign-in';
-export const passwordForgotPath = '/forgot-password';
+export const forgotPasswordPath = '/forgot-password';

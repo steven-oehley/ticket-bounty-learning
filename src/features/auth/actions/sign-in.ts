@@ -39,14 +39,14 @@ export const signIn = async (_actionState: ActionState, formData: FormData) => {
     });
 
     if (!user) {
-      return toActionState('Incorrect email or password', 'ERROR');
+      return toActionState('Incorrect email or password', 'ERROR', strippedFormData);
     }
 
     // if we find a user for the email verify the password
     const passwordValid = await verify(user.passwordHash, result.data.password);
 
     if (!passwordValid) {
-      return toActionState('Incorrect email or password', 'ERROR');
+      return toActionState('Incorrect email or password', 'ERROR', strippedFormData);
     }
 
     // if email and password valid - then we create the session in the db and place cookie

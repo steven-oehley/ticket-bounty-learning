@@ -17,7 +17,7 @@ const SignUpForm = () => {
     <Form action={signInAction} actionState={signInActionState}>
       <Label htmlFor="email">Email:</Label>
       <Input
-        defaultValue={(signInActionState.payload?.get('email') as string) || ''}
+        defaultValue={signInActionState.payload?.get('email') as string}
         id="email"
         name="email"
         placeholder="Enter your email"
