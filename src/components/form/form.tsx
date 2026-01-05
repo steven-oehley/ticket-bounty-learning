@@ -1,3 +1,5 @@
+'use client';
+
 import NextForm from 'next/form';
 
 import { cn } from '@/lib/utils';

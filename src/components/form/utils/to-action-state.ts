@@ -14,9 +14,12 @@ export const EMPTY_ACTION_STATE: ActionState = {
   timeStamp: Date.now(),
 };
 
-export const toActionState = (message: string): ActionState => {
+export const toActionState = (
+  message: string,
+  status: 'SUCCESS' | 'ERROR' = 'SUCCESS'
+): ActionState => {
   return {
-    status: 'SUCCESS',
+    status,
     message,
     timeStamp: Date.now(),
   };
