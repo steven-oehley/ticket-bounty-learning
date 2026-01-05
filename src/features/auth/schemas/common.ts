@@ -14,5 +14,5 @@ export const emailSchema = z.string().trim().email('Please enter a valid email a
 
 export const passwordSchema = z
   .string()
-  .min(8, 'Password must be at least 8 characters')
-  .max(255, 'Password must be at most 255 characters');
+  .min(10, 'Password must be at least 8 characters')
+  .max(30, 'Password must be at most 255 characters');

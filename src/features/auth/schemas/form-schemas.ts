@@ -13,3 +13,8 @@ export const signUpSchema = z
     message: 'Passwords do not match',
     path: ['confirmPassword'], // This attaches the error to confirmPassword field
   });
+
+export const signInSchema = z.object({
+  email: emailSchema,
+  password: z.string().min(1, 'Password is required'),
+});

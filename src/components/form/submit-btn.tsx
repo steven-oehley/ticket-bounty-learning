@@ -19,7 +19,7 @@ const SubmitBtn = ({ className, label, variant, isDisabled }: SubmitBtnProps) =>
   const { pending } = useFormStatus();
   return (
     <Button
-      className={cn('w-full', { className })}
+      className={cn('w-full cursor-pointer', { className })}
       disabled={isDisabled}
       type="submit"
       variant={variant}

@@ -43,7 +43,7 @@ const SignUpForm = () => {
         type="password"
       />
       <FieldError actionState={signUpActionState} name="confirmPassword" />
-      <SubmitBtn isDisabled={isPending} label="Submit" />
+      <SubmitBtn isDisabled={isPending} label="Sign Up" />
     </Form>
   );
 };
