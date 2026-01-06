@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-import { type User as AuthUser } from 'lucia';
+import { type User as AuthUser } from '@/generated/prisma/client';
 
 import { getAuth } from '../actions/get-auth';
 
