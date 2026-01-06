@@ -1,9 +1,11 @@
 import Link from 'next/link';
 
-import { LucideTicketCheck } from 'lucide-react';
+import { LucideLogOut, LucideTicketCheck } from 'lucide-react';
 
 import { homePath, signInPath, signUpPath, ticketsPath } from '@/constants/paths';
+import { signOut } from '@/features/auth/actions/sign-out';
 
+import SubmitBtn from './form/submit-btn';
 import { ThemeToggle } from './theme/theme-toggle';
 import { Button } from './ui/button';
 
@@ -24,12 +26,15 @@ const Header = () => {
         <Button asChild className="cursor-pointer" variant="default">
           <Link href={ticketsPath}>Tickets</Link>
         </Button>
-        <Button asChild className="cursor-pointer" variant="outline">
+        <Button asChild className="cursor-pointer" variant="secondary">
           <Link href={signUpPath}>Sign Up</Link>
         </Button>
-        <Button asChild className="cursor-pointer" variant="outline">
+        <Button asChild className="cursor-pointer" variant="secondary">
           <Link href={signInPath}>Sign In</Link>
         </Button>
+        <form action={signOut}>
+          <SubmitBtn icon={<LucideLogOut />} label="Sign Out" variant="ghost" />
+        </form>
       </div>
     </nav>
   );

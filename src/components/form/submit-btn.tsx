@@ -1,5 +1,6 @@
 'use client';
 
+import { type ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { LucideLoader2 } from 'lucide-react';
@@ -13,9 +14,10 @@ interface SubmitBtnProps {
   label: string;
   variant?: 'default' | 'destructive' | 'outline' | 'ghost' | 'link' | 'secondary';
   isDisabled?: boolean;
+  icon?: ReactNode;
 }
 
-const SubmitBtn = ({ className, label, variant, isDisabled }: SubmitBtnProps) => {
+const SubmitBtn = ({ className, label, variant, isDisabled, icon }: SubmitBtnProps) => {
   const { pending } = useFormStatus();
   return (
     <Button
@@ -24,7 +26,14 @@ const SubmitBtn = ({ className, label, variant, isDisabled }: SubmitBtnProps) =>
       type="submit"
       variant={variant}
     >
-      {pending ? <LucideLoader2 className="animate-spin" /> : label}
+      {pending ? (
+        <LucideLoader2 className="animate-spin" />
+      ) : (
+        <>
+          {icon}
+          {label}
+        </>
+      )}
     </Button>
   );
 };
