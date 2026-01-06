@@ -21,7 +21,7 @@ const TicketEditPage = async ({ params }: TicketEditPageProps) => {
   return (
     <div className="flex flex-1 items-center justify-center">
       <CardCompact
-        className="animate-in fade-in max-w-145 duration-400"
+        className="animate-in fade-in max-w-145 duration-600"
         description="Update your ticket details below."
         title="Edit your ticket"
       >

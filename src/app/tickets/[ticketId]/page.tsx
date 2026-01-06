@@ -19,7 +19,7 @@ const TicketPage = async ({ params }: TicketPageProps) => {
   }
 
   return (
-    <div className="animate-in fade-in slide-in-from-top flex justify-center duration-400">
+    <div className="animate-in fade-in slide-in-from-top flex justify-center duration-600">
       <TicketItem isDetailView ticket={foundTicket} />
       {/* Placed here at page level because layouts dont re-render!! NB* 
       <RedirectToast /> */}
