@@ -1,14 +1,15 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-
-import { hash } from '@node-rs/argon2';
 
 import { type ActionState, fromErrorToActionState } from '@/components/form/utils/to-action-state';
 import { ticketsPath } from '@/constants/paths';
-import { lucia } from '@/lib/lucia';
+import { createSession } from '@/features/auth/utils/session';
+import { setSessionCookie } from '@/features/auth/utils/session-cookie';
+// NEW: Import from your own utilities instead of lucia
+import { hashPassword } from '@/features/password/utils/hash-and-verify';
 import prisma from '@/lib/prisma';
+import { generateRandomToken } from '@/utils/crypto';
 
 import { signUpSchema } from '../schemas/form-schemas';
 
@@ -20,7 +21,6 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
   });
 
   try {
-    //  try to parse
     const result = signUpSchema.safeParse({
       username: formData.get('username'),
       email: formData.get('email'),
@@ -28,38 +28,37 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
       confirmPassword: formData.get('confirmPassword'),
     });
 
-    // if schema not valid return with the error
     if (!result.success) {
-      // dont want to return passwords in the actionState
       return fromErrorToActionState(result.error, strippedFormData);
     }
 
-    const passwordHash = await hash(result.data.password);
+    // OLD: const passwordHash = await hash(result.data.password);
+    // NEW: Use wrapped function with secure defaults
+    const passwordHash = await hashPassword(result.data.password);
 
-    //  if schema valid we select data to upload
     const dbData = {
       username: result.data.username,
       email: result.data.email,
       passwordHash,
     };
 
-    // upload the data adn save to variable for session creation
     const user = await prisma.user.create({
       data: dbData,
     });
 
-    // ONCE USER CREATED WE WOULD REDIRECT AND LOG THEM IN SO WE NEED TO CREATE A SESSION
-    const session = await lucia.createSession(user.id, {}); // creat session in db
-    const sessionCookie = lucia.createSessionCookie(session.id); // create session cookie
+    // OLD (Lucia):
+    // const session = await lucia.createSession(user.id, {});
+    // const sessionCookie = lucia.createSessionCookie(session.id);
+    // const cookieJar = await cookies();
+    // cookieJar.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
-    const cookieJar = await cookies();
-    cookieJar.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes); // place the session cookie
+    // NEW (Oslo):
+    const sessionToken = generateRandomToken(); // 1. Generate plain token
+    const session = await createSession(sessionToken, user.id); // 2. Store hashed in DB
+    await setSessionCookie(sessionToken, session.expiresAt); // 3. Set cookie with plain token
   } catch (error) {
-    //  if error other than schema error occurs we return it here.
-    //  dont return the passwords
     return fromErrorToActionState(error, strippedFormData);
   }
 
-  // redirect after the try catch so no accidental redirect errors caught
   redirect(ticketsPath);
 };
