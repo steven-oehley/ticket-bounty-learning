@@ -2,7 +2,9 @@
 
 import { cookies } from 'next/headers';
 
-export const setCookieByKey = async (key: string, value: string) => {
+type KeyOptions = 'toastMessage' | 'toastErrorMessage';
+
+export const setCookieByKey = async (key: KeyOptions, value: string) => {
   const cookieJar = await cookies();
   cookieJar.set(key, value);
 };

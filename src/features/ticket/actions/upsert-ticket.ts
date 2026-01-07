@@ -8,7 +8,8 @@ import {
   fromErrorToActionState,
   toActionState,
 } from '@/components/form/utils/to-action-state';
-import { ticketDetailsPath, ticketsPath } from '@/constants/paths';
+import { signInPath, ticketDetailsPath, ticketsPath } from '@/constants/paths';
+import { getAuth } from '@/features/auth/actions/get-auth';
 import { ticketUpsertSchema } from '@/features/ticket/schemas/form-schemas';
 import prisma from '@/lib/prisma';
 import { toCentsFromCurrency } from '@/utils/currency';
@@ -18,6 +19,13 @@ export const upsertTicket = async (
   _prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> => {
+  const { user } = await getAuth();
+
+  if (!user?.id) {
+    await setCookieByKey('toastErrorMessage', 'You are not signed in');
+    redirect(signInPath);
+  }
+
   try {
     const result = ticketUpsertSchema.safeParse({
       title: formData.get('title'),
@@ -33,6 +41,7 @@ export const upsertTicket = async (
     const dbData = {
       ...result.data,
       bounty: toCentsFromCurrency(result.data.bounty),
+      userId: user?.id,
     };
 
     await prisma.ticket.upsert({

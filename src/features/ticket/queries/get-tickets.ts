@@ -1,10 +1,19 @@
-import { type Ticket } from '@/generated/prisma/client';
 import { prisma } from '@/lib/prisma';
 
-export const getTickets = async (): Promise<Ticket[]> => {
+import { type TicketWithUser } from '../types';
+
+export const getTickets = async (): Promise<TicketWithUser[]> => {
   const tickets = await prisma.ticket.findMany({
     orderBy: {
       createdAt: 'desc',
+    },
+    include: {
+      user: {
+        select: {
+          username: true,
+          id: true,
+        },
+      },
     },
   });
   return tickets;

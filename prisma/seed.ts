@@ -1,5 +1,6 @@
 import 'dotenv/config';
 
+import { hash } from '@node-rs/argon2';
 import { PrismaNeon } from '@prisma/adapter-neon';
 
 import { PrismaClient } from '@/generated/prisma/client';
@@ -10,6 +11,17 @@ const adapter = new PrismaNeon({
 });
 
 const prisma = new PrismaClient({ adapter });
+
+const users = [
+  {
+    username: 'admin',
+    email: 'admin@admin.com',
+  },
+  {
+    username: 'user',
+    email: 'sjoehley@outlook.com',
+  },
+];
 
 const tickets = [
   {
@@ -58,12 +70,26 @@ const seed = async () => {
   const t0 = performance.now();
   console.info('🌱 Seeding database...');
 
-  console.info('🗑️  Clearing existing tickets...');
+  console.info('🗑️  Clearing existing tickets and users...');
   await prisma.ticket.deleteMany();
+  await prisma.user.deleteMany();
 
-  console.info(`📝 Creating ${tickets.length} tickets...`);
+  console.info(`📝 Creating ${tickets.length} tickets and ${users.length} users...`);
+
+  const passwordHash = await hash('password2026');
+
+  const dbUsers = await prisma.user.createManyAndReturn({
+    data: users.map((user) => ({
+      ...user,
+      passwordHash,
+    })),
+  });
+
   await prisma.ticket.createMany({
-    data: tickets,
+    data: tickets.map((ticket) => ({
+      ...ticket,
+      userId: dbUsers[0].id,
+    })),
   });
 
   const t1 = performance.now();
