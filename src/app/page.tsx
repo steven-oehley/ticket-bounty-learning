@@ -1,17 +1,16 @@
-import Link from 'next/link';
+import { Suspense } from 'react';
 
 import { Heading } from '@/components/heading';
-import { ticketsPath } from '@/constants/paths';
+import LoaderSpinner from '@/components/loader-spinner';
+import TicketList from '@/features/ticket/components/ticket-list';
 
 const HomePage = () => {
   return (
     <div className="flex flex-1 flex-col gap-y-8">
-      <Heading description="Your home place to start" title="Home" />
-      <div className="flex flex-1 flex-col items-center">
-        <Link className="text-sm underline" href={ticketsPath}>
-          Go to Tickets
-        </Link>
-      </div>
+      <Heading description="View all tickets on Ticket Bounty" title="All Tickets" />
+      <Suspense fallback={<LoaderSpinner />}>
+        <TicketList />
+      </Suspense>
     </div>
   );
 };

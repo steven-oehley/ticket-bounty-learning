@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import CardCompact from '@/components/card-compact';
 import { Heading } from '@/components/heading';
 import LoaderSpinner from '@/components/loader-spinner';
+import { getAuth } from '@/features/auth/actions/get-auth';
 import TicketUpsertForm from '@/features/ticket/components/forms/ticket-upsert-form';
 import TicketList from '@/features/ticket/components/ticket-list';
 
@@ -35,9 +36,10 @@ import TicketList from '@/features/ticket/components/ticket-list';
 // export const revalidate = 30; // Revalidate this page every 30 seconds
 
 const TicketsPage = async () => {
+  const { user } = await getAuth();
   return (
     <div className="flex flex-1 flex-col gap-y-8">
-      <Heading description="All your tickets at one place" title="Tickets" />
+      <Heading description="All your created tickets" title="My Tickets" />
       {/* In order to suspend the data fetching needs to happen inside the Suspense */}
       {/* This is why we refactored to separate TicketList with data fetching there and then wrapped in Suspense */}
 
@@ -50,7 +52,7 @@ const TicketsPage = async () => {
         <TicketUpsertForm />
       </CardCompact>
       <Suspense fallback={<LoaderSpinner />}>
-        <TicketList />
+        <TicketList userId={user?.id} />
       </Suspense>
       {/* <RedirectToast /> */}
       {/* Moved to layout and added pathname as dependency */}
