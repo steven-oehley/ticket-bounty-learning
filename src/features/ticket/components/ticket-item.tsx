@@ -25,7 +25,12 @@ const TicketItem = async ({ ticket, isDetailView }: TicketItemProps) => {
         'max-w-105': !isDetailView,
       })}
     >
-      <Card className="w-full">
+      <Card
+        className={cn('w-full', {
+          'before:from-primary before:to-primary/50 relative before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded-l-2xl before:bg-gradient-to-b':
+            isOwner,
+        })}
+      >
         <CardHeader>
           <CardTitle className="flex gap-x-2">
             <span>{TICKET_ICONS[ticket.status]}</span>
@@ -43,7 +48,14 @@ const TicketItem = async ({ ticket, isDetailView }: TicketItemProps) => {
         </CardContent>
         <CardFooter className="text-muted-foreground flex justify-between text-sm">
           <p>
-            Created on {ticket.deadline} by {isOwner ? 'you' : ticket.user.username}
+            Created on {ticket.deadline} by{' '}
+            {isOwner ? (
+              <span className="bg-primary/15 text-primary rounded px-1.5 py-0.5 font-semibold">
+                You
+              </span>
+            ) : (
+              ticket.user.username
+            )}
           </p>
           <p>{formatCurrency(ticket.bounty)}</p>
         </CardFooter>
