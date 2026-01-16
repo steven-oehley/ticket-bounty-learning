@@ -1,4 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { getAuth } from '@/features/auth/actions/get-auth';
+import { isTicketOwner } from '@/features/auth/utils/is-ticket-owner';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@/utils/currency';
 
@@ -12,7 +14,10 @@ type TicketItemProps = {
   isDetailView?: boolean;
 };
 
-const TicketItem = ({ ticket, isDetailView }: TicketItemProps) => {
+const TicketItem = async ({ ticket, isDetailView }: TicketItemProps) => {
+  const { user: authUser } = await getAuth();
+  const isOwner = isTicketOwner(authUser, ticket);
+
   return (
     <div
       className={cn('flex w-full gap-x-1', {
@@ -38,7 +43,7 @@ const TicketItem = ({ ticket, isDetailView }: TicketItemProps) => {
         </CardContent>
         <CardFooter className="text-muted-foreground flex justify-between text-sm">
           <p>
-            Created on {ticket.deadline} by {ticket.user.username}
+            Created on {ticket.deadline} by {isOwner ? 'you' : ticket.user.username}
           </p>
           <p>{formatCurrency(ticket.bounty)}</p>
         </CardFooter>

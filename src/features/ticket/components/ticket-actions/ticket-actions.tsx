@@ -20,7 +20,7 @@ const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
     <div className="flex flex-col gap-y-1">
       {isDetailedView ? (
         <>
-          <EditBtn ticketId={ticket.id} />
+          <EditBtn ticket={ticket} />
           <ConfirmDialog
             action={deleteTicketAction.bind(null, ticket.id)}
             description="This action can not be undone. Once the ticket is deleted, it is lost forever."
@@ -36,7 +36,7 @@ const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
       ) : (
         <>
           <DetailBtn ticketId={ticket.id} />
-          <EditBtn ticketId={ticket.id} />
+          <EditBtn ticket={ticket} />
         </>
       )}
     </div>

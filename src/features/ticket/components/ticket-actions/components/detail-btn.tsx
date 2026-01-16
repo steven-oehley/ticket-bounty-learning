@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { LucideArrowUpRightFromSquare } from 'lucide-react';
+import { LucideEye } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { ticketDetailsPath } from '@/constants/paths';
@@ -14,7 +14,7 @@ const DetailBtn = ({ ticketId }: DetailBtnProps) => {
     <Button asChild size="icon" variant="outline">
       {/* prefetch happens when link enters viewport */}
       <Link prefetch href={ticketDetailsPath(ticketId)}>
-        <LucideArrowUpRightFromSquare />
+        <LucideEye />
       </Link>
     </Button>
   );
