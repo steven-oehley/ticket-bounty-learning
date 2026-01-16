@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { LucideArrowBigLeft, LucideScanEye } from 'lucide-react';
 
 import { Placeholder } from '@/components/placeholder';
@@ -11,10 +9,12 @@ const NotFound = () => {
     <Placeholder
       button={
         <Button asChild variant="outline">
-          <Link href={ticketsPath}>
+          {/* current Nextjs issue prevents the use of Link with loading.tsx - tracking issue here 
+          ---> https://github.com/vercel/next.js/issues/86151 */}
+          <a href={ticketsPath}>
             <LucideArrowBigLeft />
             Back To Tickets
-          </Link>
+          </a>
         </Button>
       }
       Icon={LucideScanEye}
