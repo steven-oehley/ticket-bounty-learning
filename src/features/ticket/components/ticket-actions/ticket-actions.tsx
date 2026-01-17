@@ -1,3 +1,4 @@
+import TooltipCustom from '@/components/tooltip-custom';
 import { type Ticket } from '@/generated/prisma/client';
 
 import DeleteBtn from './components/delete-btn';
@@ -15,14 +16,24 @@ const TicketActions = async ({ isDetailedView, ticket }: TicketActionsProps) => 
     <div className="flex flex-col gap-y-1">
       {isDetailedView ? (
         <>
-          <EditBtn ticket={ticket} />
-          <DeleteBtn ticket={ticket} />
-          <TicketExtendedOptions ticket={ticket} />
+          <TooltipCustom message="Edit Ticket">
+            <EditBtn ticket={ticket} />
+          </TooltipCustom>
+          <TooltipCustom message="Delete Ticket">
+            <DeleteBtn ticket={ticket} />
+          </TooltipCustom>
+          <TooltipCustom message="More Actions">
+            <TicketExtendedOptions ticket={ticket} />
+          </TooltipCustom>
         </>
       ) : (
         <>
-          <DetailBtn ticketId={ticket.id} />
-          <EditBtn ticket={ticket} />
+          <TooltipCustom message="View details">
+            <DetailBtn ticketId={ticket.id} />
+          </TooltipCustom>
+          <TooltipCustom message="Edit Ticket">
+            <EditBtn ticket={ticket} />
+          </TooltipCustom>
         </>
       )}
     </div>
