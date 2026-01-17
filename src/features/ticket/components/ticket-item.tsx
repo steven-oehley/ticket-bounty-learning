@@ -27,7 +27,7 @@ const TicketItem = async ({ ticket, isDetailView }: TicketItemProps) => {
     >
       <Card
         className={cn('w-full', {
-          'before:from-primary before:to-primary/50 relative before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded-l-2xl before:bg-gradient-to-b':
+          'before:from-primary before:to-primary/50 relative before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded-l-2xl before:bg-linear-to-b':
             isOwner,
         })}
       >
