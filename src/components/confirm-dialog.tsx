@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 
 import { LucideLoader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 import {
   AlertDialog,
@@ -15,6 +16,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+
+import { type ActionState } from './form/utils/to-action-state';
 
 interface ConfirmDialogProps {
   trigger: React.ReactElement;
@@ -29,7 +32,13 @@ const ConfirmDialog = ({ trigger, title, description, action }: ConfirmDialogPro
 
   const handleConfirm = () => {
     startTransition(async () => {
-      await action();
+      const result = (await action()) as ActionState | void;
+
+      if (result?.status === 'ERROR') {
+        toast.error(result.message);
+        // Optionally keep dialog open on error:
+        // return;
+      }
       setOpen(false);
     });
   };

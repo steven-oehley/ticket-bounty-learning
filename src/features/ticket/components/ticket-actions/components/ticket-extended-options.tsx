@@ -13,6 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAuth } from '@/features/auth/hooks/use-auth';
+import { isTicketOwner } from '@/features/auth/utils/is-ticket-owner';
 import { updateTicketStatus } from '@/features/ticket/actions/update-ticket-status';
 import { TICKET_ICONS } from '@/features/ticket/constants';
 import { type Ticket, type TicketStatus } from '@/generated/prisma/client';
@@ -22,6 +24,10 @@ interface TicketExtendedOptionsProps {
 }
 
 const TicketExtendedOptions = ({ ticket }: TicketExtendedOptionsProps) => {
+  const { user: authUser } = useAuth();
+
+  const isOwner = isTicketOwner(authUser, ticket);
+
   const handleStatusChange = async (value: string) => {
     const promise = updateTicketStatus(ticket.id, value as TicketStatus);
 
@@ -34,6 +40,8 @@ const TicketExtendedOptions = ({ ticket }: TicketExtendedOptionsProps) => {
     if (result.status === 'ERROR') toast.error(result.message);
     else if (result.status === 'SUCCESS') toast.success(result.message);
   };
+
+  if (!isOwner) return null;
 
   return (
     <DropdownMenu>

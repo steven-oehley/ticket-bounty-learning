@@ -1,11 +1,6 @@
-import { LucideTrash2 } from 'lucide-react';
-
-import ConfirmDialog from '@/components/confirm-dialog';
-import { Button } from '@/components/ui/button';
 import { type Ticket } from '@/generated/prisma/client';
 
-import { deleteTicketAction } from '../../actions/delete-ticket';
-
+import DeleteBtn from './components/delete-btn';
 import DetailBtn from './components/detail-btn';
 import EditBtn from './components/edit-btn';
 import TicketExtendedOptions from './components/ticket-extended-options';
@@ -15,22 +10,13 @@ interface TicketActionsProps {
   ticket: Ticket;
 }
 
-const TicketActions = ({ isDetailedView, ticket }: TicketActionsProps) => {
+const TicketActions = async ({ isDetailedView, ticket }: TicketActionsProps) => {
   return (
     <div className="flex flex-col gap-y-1">
       {isDetailedView ? (
         <>
           <EditBtn ticket={ticket} />
-          <ConfirmDialog
-            action={deleteTicketAction.bind(null, ticket.id)}
-            description="This action can not be undone. Once the ticket is deleted, it is lost forever."
-            title="Are you sure you want to delete this ticket?"
-            trigger={
-              <Button className="cursor-pointer" size="icon" variant="outline">
-                <LucideTrash2 />
-              </Button>
-            }
-          />
+          <DeleteBtn ticket={ticket} />
           <TicketExtendedOptions ticket={ticket} />
         </>
       ) : (

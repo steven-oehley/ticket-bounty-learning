@@ -14,7 +14,7 @@ import { ticketUpsertSchema } from '@/features/ticket/schemas/form-schemas';
 import prisma from '@/lib/prisma';
 import { toCentsFromCurrency } from '@/utils/currency';
 
-import { getTicketAndCheckOwner } from '../queries/get-ticket-check-owner';
+import { checkTicketOwnership } from '../queries/check-ticket-ownership';
 
 export const upsertTicket = async (
   ticketId: string | undefined,
@@ -30,10 +30,10 @@ export const upsertTicket = async (
 
     if (ticketId) {
       // check if user has permission - ie is ticketOwner
-      const { isAllowed, message } = await getTicketAndCheckOwner(ticketId, authUser);
+      const { isAuthorised, message } = await checkTicketOwnership(ticketId, authUser);
 
       // if do not have permission ie is not owner or could not find ticket for some reason
-      if (!isAllowed) return toActionState(message, 'ERROR');
+      if (!isAuthorised) return toActionState(message, 'ERROR');
     }
 
     const result = ticketUpsertSchema.safeParse({
