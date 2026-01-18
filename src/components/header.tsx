@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { LucideLogOut, LucideTicketCheck } from 'lucide-react';
 
-import { homePath, signInPath, signUpPath, ticketsPath } from '@/constants/paths';
+import { homePath, signInPath, signUpPath } from '@/constants/paths';
 import { signOut } from '@/features/auth/actions/sign-out';
 import { useAuth } from '@/features/auth/hooks/use-auth';
 
@@ -21,14 +21,9 @@ const Header = () => {
     <div className="align-items animate-in slide-in-from-top flex gap-x-2 duration-600">
       <ThemeToggle />
       {isLoggedIn ? (
-        <>
-          <Button asChild className="cursor-pointer" variant="default">
-            <Link href={ticketsPath}>Tickets</Link>
-          </Button>
-          <form action={signOut}>
-            <SubmitBtn icon={<LucideLogOut />} label="Sign Out" variant="ghost" />
-          </form>
-        </>
+        <form action={signOut}>
+          <SubmitBtn icon={<LucideLogOut />} label="Sign Out" variant="ghost" />
+        </form>
       ) : (
         <>
           <Button asChild className="cursor-pointer" variant="secondary">

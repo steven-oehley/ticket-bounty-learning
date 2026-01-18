@@ -3,9 +3,11 @@ import { Figtree } from 'next/font/google';
 
 import { Analytics } from '@vercel/analytics/next';
 
+import { AuthSidebar } from '@/components/auth-sidebar/auth-sidebar';
 import { Header } from '@/components/header';
 import RedirectToast from '@/components/redirect-toast';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
@@ -31,13 +33,18 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
         >
-          <Header />
-          <main className="bg-secondary/20 flex min-h-screen flex-1 flex-col overflow-x-hidden overflow-y-auto px-8 py-24">
-            {children}
-          </main>
-          <Toaster position="bottom-right" />
-          <RedirectToast />
-          <Analytics />
+          <SidebarProvider defaultOpen={false}>
+            <AuthSidebar />
+            <SidebarInset>
+              <Header />
+              <section className="bg-secondary/20 flex min-h-screen flex-1 flex-col overflow-x-hidden px-8 py-24">
+                {children}
+              </section>
+            </SidebarInset>
+            <Toaster position="bottom-right" />
+            <RedirectToast />
+            <Analytics />
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
